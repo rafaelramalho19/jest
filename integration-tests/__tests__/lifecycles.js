@@ -10,8 +10,15 @@
 
 const runJest = require('../runJest');
 
+test('suite with invalid assertions in beforeAll', () => {
+  const {stderr, status} = runJest('lifecycles/beforeAll_asserts');
+
+  expect(status).toBe(1);
+  expect(stderr).toMatch(/beforeAll just failed!/);
+});
+
 test('suite with invalid assertions in afterAll', () => {
-  const {stderr, status} = runJest('lifecycles');
+  const {stderr, status} = runJest('lifecycles/afterAll_fail');
 
   expect(status).toBe(1);
   expect(stderr).toMatch(/afterAll just failed!/);
